@@ -1,0 +1,16 @@
+{
+    "name": "GPooler.Samples.CubeSpawner",
+    "rootNamespace": "GPooler.Samples.CubeSpawner",
+    "references": [
+        "GUID:879b9efc51f22d54abf325d27c69023c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
