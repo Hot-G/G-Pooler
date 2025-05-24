@@ -1,0 +1,28 @@
+{
+  "name": "com.ghot.g-pooler",
+  "version": "1.0.1",
+  "displayName": "G-Pooler",
+  "description": "Object Pooler system specially for hyper-casual.",
+  "unity": "2021.3",
+  "keywords": [
+    "hyper",
+    "casual",
+    "object",
+    "pool",
+    "pooler"
+  ],
+  "author": {
+    "name": "G-hot",
+    "email": "cihatozdemirmis@hotmail.com",
+    "url": "https://github.com/Hot-G"
+  },
+  "dependencies": {
+  },
+  "samples": [
+    {
+      "displayName": "Cube Spawner",
+      "description": "Basic cube spawner using object pooling",
+      "path": "Samples~/CubeSpawner"
+    }
+  ]
+}
