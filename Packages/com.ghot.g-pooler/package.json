@@ -1,6 +1,6 @@
 {
   "name": "com.ghot.g-pooler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "G-Pooler",
   "description": "Object Pooler system specially for hyper-casual.",
   "unity": "2021.3",

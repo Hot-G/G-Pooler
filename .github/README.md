@@ -4,23 +4,14 @@
   <img src="Images/logo.png" />
 </p>
 
-## Contents
+## 1. Install / Setup
 
-1. Setup / Install
+Package can be installed with Unity Package Manager:
+```
+  https://github.com/Hot-G/G-Pooler.git#upm
+```
 
-
-    1.1 Create a Pool Object
-
-    1.2 Pool Object Settings
-
-2. Usage
-
-    2.1 Example To Get Pool Object
-
-    2.2 Example To Add Pool 3
-
-
-## 1. Setup / Install
+### Scene Settings
 
 Drag Object Pooler Prefab to Scene (G-Pooler/Runtime/Prefabs), It’s done!
 
