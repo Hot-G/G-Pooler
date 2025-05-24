@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace G_Pooler
+namespace GTools.GPooler
 {
     public class PoolObject : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace G_Pooler
+namespace GTools.GPooler
 {
     public class ObjectPoolItem<T> where T : Component
     {

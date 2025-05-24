@@ -1,7 +1,7 @@
 using UnityEngine;
-using Random = UnityEngine.Random;
+using GTools.GPooler;
 
-namespace G_Pooler.Demo
+namespace GPooler.Samples.CubeSpawner
 {
     public class CubeSpawner : MonoBehaviour
     {
