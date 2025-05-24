@@ -25,7 +25,7 @@ namespace GTools.GPooler
     public class ObjectPooler : MonoBehaviour
     {
         private static ObjectPooler _instance;
-        private static readonly Dictionary<string, ObjectPoolItem<Component>> poolList = new Dictionary<string, ObjectPoolItem<Component>>();
+        private static readonly Dictionary<string, ObjectPoolItem<Component>> poolList = new();
 
         private void Awake()
         {
@@ -34,11 +34,9 @@ namespace GTools.GPooler
         }
         
         /// <summary>
-        ///   <para>Reset all pools.</para>
+        ///   <para>Reset all pool objects.</para>
         /// </summary>
         /// <param name="destroyOldObjects">First, destroy spawned objects and respawn pool objects.</param>
-        ///
-
         public static void ResetPoolObjects(bool destroyOldObjects = false)
         {
             if (destroyOldObjects)
@@ -55,7 +53,9 @@ namespace GTools.GPooler
             
             poolList.Clear();
 
-            foreach (var poolObject in Resources.LoadAll<PoolObject>("/"))
+            var poolObjects = Resources.LoadAll<PoolObject>("/");
+            
+            foreach (var poolObject in poolObjects)
             {
                 CreatePoolObject(new ObjectPoolItem<Component>
                 {
@@ -65,8 +65,6 @@ namespace GTools.GPooler
                     expandType = poolObject.expandType
                 }, poolObject.objectToPool.GetType());
             }
-        
-            System.GC.Collect();
         }
         
         /// <summary>
@@ -74,8 +72,6 @@ namespace GTools.GPooler
         /// </summary>
         /// <param name="newPoolItem">Object properties you want to add.</param>
         /// <param name="type">Added object type</param>
-        ///
-
         public static void CreatePoolObject<T>(ObjectPoolItem<T> newPoolItem, Type type) where T : Component
         {
             if (!poolList.ContainsKey(newPoolItem.tag))
@@ -84,20 +80,10 @@ namespace GTools.GPooler
                 poolList[newPoolItem.tag].poolObjects = new List<Component>(newPoolItem.amountToPool);   
             }
         
-            for (int i = 0; i < newPoolItem.amountToPool; i++)
+            for (var i = 0; i < newPoolItem.amountToPool; i++)
             {
                 SpawnPoolObject(newPoolItem, type).gameObject.SetActive(false);
             }
-        }
-
-        private static T SpawnPoolObject<T>(ObjectPoolItem<T> newPoolItem, Type type) where T : Component
-        {
-            var spawnedObject = Instantiate(newPoolItem.objectToPool.gameObject);
-            spawnedObject.name = newPoolItem.tag;
-            var spawnedComponent = spawnedObject.GetComponent(type);
-            poolList[newPoolItem.tag].poolObjects.Add(spawnedComponent);
-            Destroy(spawnedObject.GetComponent<PoolObject>());
-            return (T)spawnedComponent;
         }
 
         /// <summary>
@@ -110,7 +96,6 @@ namespace GTools.GPooler
         /// <returns>
         ///   <para>Game object as ready in pool.</para>
         /// </returns>
-
         public static T GetPoolObject<T>(string tag, Vector3 spawnPosition, Vector3 eulerAngles, Transform attachTransform) where T : Component
         {
             var returnedObject = GetPoolObject<T>(tag, spawnPosition, eulerAngles);
@@ -126,7 +111,6 @@ namespace GTools.GPooler
         /// <returns>
         ///   <para>Game object as ready in pool.</para>
         /// </returns>
-    
         public static T GetPoolObject<T>(string tag, Transform attachTransform) where T : Component
         {
             return GetPoolObject<T>(tag, default, default, attachTransform);
@@ -151,7 +135,7 @@ namespace GTools.GPooler
             {
                 var currentPoolObject = currentPoolList[i];
 
-                if (!currentPoolObject.gameObject.activeInHierarchy)
+                if (!currentPoolObject.gameObject.activeSelf)
                 {
                     returnedObject = (T)currentPoolObject;
                     break;
@@ -206,6 +190,19 @@ namespace GTools.GPooler
         public static void StopAddPool(Coroutine coroutine)
         {
             if (coroutine != null) _instance.StopCoroutine(coroutine);
+        }
+        
+        private static T SpawnPoolObject<T>(ObjectPoolItem<T> newPoolItem, Type type) where T : Component
+        {
+            var spawnedObject = Instantiate(newPoolItem.objectToPool.gameObject);
+            spawnedObject.name = newPoolItem.tag;
+            
+            var spawnedComponent = spawnedObject.GetComponent(type);
+            poolList[newPoolItem.tag].poolObjects.Add(spawnedComponent);
+            
+            Destroy(spawnedObject.GetComponent<PoolObject>());
+            
+            return (T)spawnedComponent;
         }
     
         private static IEnumerator DisableWithDelay(GameObject selectedGameObject, float delay)

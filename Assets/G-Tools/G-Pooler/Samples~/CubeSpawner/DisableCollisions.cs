@@ -7,7 +7,6 @@ namespace GPooler.Samples.CubeSpawner
     {
         private void OnCollisionEnter(Collision collision)
         {
-            //ADD POOL FUNCTION
             ObjectPooler.AddPool(collision.gameObject);
         }
     }
